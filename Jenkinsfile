@@ -1,24 +1,11 @@
-pipeline{
-  agent any
-   tools { nodejs "node"}
-  stages {
-   stage ('parallel build'){
-     parallel {
-       stage("on linux"){
-         agent {label 'slave1'}
-     steps{
-         sh 'npm install'
-         sh 'npm pack'
-         echo "congratulation"
-      }
-    } 
-      stage("on Window"){
-         agent {label 'slavefor'}
-     steps{
-         sh 'npm start'
-      }
+pipeline {
+    agent { dockerfile true }
+    stages {
+        stage('Test') {
+            steps {
+                sh 'node --version'
+                sh 'svn --version'
+            }
+        }
     }
- }
-}
- }
 }
